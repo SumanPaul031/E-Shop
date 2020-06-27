@@ -1,0 +1,34 @@
+<nav *ngIf="!isAdminUrl" class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" routerLink="/home" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">E-Shop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" *ngIf="isLoggedIn" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" routerLink="/home">Store <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn && (isAdmin$ | async)" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" routerLink="/admin">Admin Dashboard</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item" *ngIf="isLoggedIn" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" routerLink="/orders">Orders <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" routerLink="/cart">Cart <span class="badge badge-primary">{{numberOfItems}}</span><span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" routerLink="/login">Login <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" href="javascript:void(0);" (click)="logout()">Logout</a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" routerLink="/signup">Signup</a>
+        </li>
+      </ul>
+    </div>
+</nav>

@@ -1,0 +1,30 @@
+<div class="text-center mt-4">
+    <form class="form-signin border rounded" (submit)="signup($event)">
+        <img src="assets/onlinebazaar_shopping.png" alt="" width="72" height="72"/>
+        <h1 class="h3 mb-3 font-weight-normal">Sign-Up</h1>
+        <label for="name" class="sr-only">Name</label>
+        <input type="text" id="name" name="name" class="form-control mb-2" placeholder="Name" required autofocus>
+
+        <label for="phone" class="sr-only">Phone Number</label>
+        <input ype="number" id="phone" name="phone" class="form-control mb-2" placeholder="Phone Number" required>
+
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" name="email" class="form-control mb-2" placeholder="Email address" required>
+
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input #password type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+
+        <label for="confirmPassword" class="sr-only">Confirm</label>
+        <input type="password" id="confirmPassword" name="confirm" (keyup)="matchPasswword($event, password)" class="form-control mb-0" placeholder="Repeat Password" required>
+        <small *ngIf="disable" id="passwordHelpBlock" class="form-text text-danger">
+            Passwords do not match
+        </small>
+        <!-- <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div> -->
+        <button [disabled]="disable" class="btn btn-lg btn-light border rounded btn-block mt-4" type="submit">Create Account</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+    </form>
+</div>

@@ -1,0 +1,89 @@
+<div class="container-fluid p-3">
+    <h1 class="display-6">Orders</h1>
+    <hr>
+    <div class="p-1">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Total (₹)</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of (orders$ | async); index as i" (click)="showDetails(orderInfo, order)">
+                    <td>{{i+1}}</td>
+                    <td>{{order.user.name}}</td>
+                    <td>{{order.user.phone}}</td>
+                    <td>{{order.product.name}}</td>
+                    <td>{{order.quantity}}</td>
+                    <td>{{order.quantity * order.price}}</td>
+                    <!-- <td>{{order.status}}</td> -->
+                    <td>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label (click)="changeStatus('completed', order)" class="btn btn-sm" [class.btn-success]="order.status == 'completed'" [class.btn-light]="order.status != 'completed'">
+                                S
+                            </label>
+                            <label (click)="changeStatus('pending', order)" class="btn btn-sm" [class.btn-warning]="order.status == 'pending'" [class.btn-light]="order.status != 'pending'">
+                                P
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #orderInfo>
+    <div class="p-4">
+        <button (click)="close()" type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="row">
+            <table class="table border-0 col-lg-8">
+                <tr>
+                    <th>Product Name</th>
+                    <td>{{selectedOrder?.product.name}}</td>
+                </tr>
+                <tr>
+                    <th>Order ID</th>
+                    <td>{{selectedOrder?._id}}</td>
+                </tr>
+                <tr>
+                    <th>Order Date</th>
+                    <td>{{selectedOrder?.created_at | date}}</td>
+                </tr>
+                <tr>
+                    <th>Product Category</th>
+                    <td>{{selectedOrder?.product.category.name}}</td>
+                </tr>
+                <tr>
+                    <th>Quantity</th>
+                    <td>{{selectedOrder?.quantity}}</td>
+                </tr>
+                <tr>
+                    <th>Unit Price</th>
+                    <td>{{selectedOrder?.price | currency: 'INR'}}</td>
+                </tr>
+                <tr>
+                    <th>Total Amount</th>
+                    <td>{{(selectedOrder?.price * selectedOrder?.quantity) | currency: 'INR'}}</td>
+                </tr>
+                <tr>
+                    <th>Order Status</th>
+                    <td>
+                        <span class="badge" [class.badge-warning]="selectedOrder?.status == 'pending'" [class.badge-success]="selectedOrder?.status == 'completed'">{{selectedOrder?.status}}</span>
+                    </td>
+                </tr>
+            </table>
+            <div class="col-lg-4">
+                <img src="/api/{{selectedOrder?.product.productImage}}" alt="" class="img-thumbnail mx-auto">
+            </div>
+        </div>
+    </div>
+</ng-template>
